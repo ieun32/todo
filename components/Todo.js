@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';             //Icon 라이브러리
 import AsyncStorage from '@react-native-async-storage/async-storage';   //비동기적 저장소, 앱이 꺼져도 데이터가 유지되는 장점
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Progress from 'react-native-progress';
 let DATE = new Date()
 const COLORS = { primary: '#1f145c', white: '#fff' };
