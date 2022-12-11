@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react';
 import {
   StyleSheet,
-  SafeAreaView,                                                         //컨텐츠가 아이폰 노치에 가려지지 않게해주는 View
+  SafeAreaView,
   View,
   TextInput,
   Text,
-  FlatList,                                                             //컴포넌트 리스트를 동적으로 화면에 보여주는 scrollview
+  FlatList,
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';             //Icon 라이브러리
-import AsyncStorage from '@react-native-async-storage/async-storage';   //비동기적 저장소, 앱이 꺼져도 데이터가 유지되는 장점
-const COLORS = { primary: '#1f145c', white: '#fff' };                  
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const COLORS = {primary: '#1f145c', white: '#fff'};
 
-
-const TodoApp = () => {
+const App = () => {
   const [todos, setTodos] = useState([]);
   const [textInput, setTextInput] = useState('');
 
@@ -63,7 +62,7 @@ const TodoApp = () => {
   const markTodoComplete = todoId => {
     const newTodosItem = todos.map(item => {
       if (item.id == todoId) {
-        return { ...item, completed: true };
+        return {...item, completed: true};
       }
       return item;
     });
@@ -88,10 +87,10 @@ const TodoApp = () => {
     ]);
   };
 
-  const ListItem = ({ todo }) => {
+  const ListItem = ({todo}) => {
     return (
       <View style={styles.listItem}>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text
             style={{
               fontWeight: 'bold',
@@ -104,7 +103,7 @@ const TodoApp = () => {
         </View>
         {!todo?.completed && (
           <TouchableOpacity onPress={() => markTodoComplete(todo.id)}>
-            <View style={[styles.actionIcon, { backgroundColor: 'green' }]}>
+            <View style={[styles.actionIcon, {backgroundColor: 'green'}]}>
               <Icon name="done" size={20} color="white" />
             </View>
           </TouchableOpacity>
@@ -117,10 +116,8 @@ const TodoApp = () => {
       </View>
     );
   };
-
-  //*🖼️Screen View*//
   return (
-    <SafeAreaView           
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: 'white',
@@ -136,11 +133,11 @@ const TodoApp = () => {
         </Text>
         <Icon name="delete" size={25} color="red" onPress={clearAllTodos} />
       </View>
-      <FlatList                                                             //*FlatList*//
-        showsVerticalScrollIndicator={false}                                    //스크롤 숨기기
-        contentContainerStyle={{ padding: 20, paddingBottom: 100 }}             //자식들 스타일
-        data={todos}                                                            //리스트의 source를 담는 prop
-        renderItem={({ item }) => <ListItem todo={item} />}                     //data로 받은 source 각각을 render시켜주는 콜백함수
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{padding: 20, paddingBottom: 100}}
+        data={todos}
+        renderItem={({item}) => <ListItem todo={item} />}
       />
 
       <View style={styles.footer}>
@@ -217,4 +214,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TodoApp;
+export default App;
